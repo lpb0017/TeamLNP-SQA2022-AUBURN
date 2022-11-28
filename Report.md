@@ -1,0 +1,1 @@
+1. Git Hook is a hidden file inside the Github repo,so you cannot find it directly from the file, you have to edit from the command prompt, and make a change
