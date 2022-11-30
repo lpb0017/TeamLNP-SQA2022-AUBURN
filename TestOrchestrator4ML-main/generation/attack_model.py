@@ -14,6 +14,7 @@ from sklearn.metrics import roc_curve, auc
 from matplotlib import pyplot as plt
 from keras.models import Sequential
 from keras.layers import Dense
+import project_logger
 
 def calculate_k(X_train, X_test, y_train, y_test):
     """
@@ -64,7 +65,8 @@ def perform_inference(X_train, X_test, y_train, y_test, model_name):
     """
     Performing inference of the trained model on the testing set:
     """
-    
+    log0 = project_logger.getInfoLogger()
+
     if (model_name == 'KNeighborsClassifier') : 
         k = calculate_k(X_train, X_test, y_train, y_test)
         model = KNeighborsClassifier(n_neighbors = k)
@@ -81,6 +83,8 @@ def perform_inference(X_train, X_test, y_train, y_test, model_name):
         model = DecisionTreeClassifier()
     model.fit(X_train, y_train)
     pred = model.predict(X_test)
+    #Logging the prediction to check if the model has been attacked
+    log1.info('{}*{}*{}'.format('attack_model.py', 'perform_inference', pred))
     pred = np.round(abs(pred))
     acc = accuracy_score(y_test, pred)
     precision, recall, fscore, _ = precision_recall_fscore_support(y_test, pred, average = 'binary')

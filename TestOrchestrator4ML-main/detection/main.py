@@ -5,7 +5,7 @@ import os
 import pandas as pd
 import py_parser 
 import numpy as np 
-
+import project_logger
 
 def giveTimeStamp():
   tsObj = time.time()
@@ -13,6 +13,9 @@ def giveTimeStamp():
   return strToret
   
 def get_test_details(test_script):
+    log0 = project_logger.getInfoLogger()
+    #Checking the input for erroneous data
+    log0.info('{}*{}*{}'.format('detection\main.py', 'get_test_details', test_script))
     test_name_list = []
     test_with_assert_list = []
     py_tree = py_parser.getPythonParseObject(test_script)
@@ -33,6 +36,9 @@ def get_test_details(test_script):
 
 
 def checkClassificationAlgoTest(test_script):
+    log1 = project_logger.getInfoLogger()
+    #Checking the input for erroneous data
+    log1.info('{}*{}*{}'.format('detection\main.py', 'checkClassificationAlgoTest', test_script))
     print("algo check: ", test_script)
     py_tree = py_parser.getPythonParseObject(test_script)
     classification_algo_list = py_parser.getClassificationAlgoNames( py_tree ) 
@@ -43,6 +49,9 @@ def checkClassificationAlgoTest(test_script):
   
   
 def checkAccuracyTest(test_script):
+    log2 = project_logger.getInfoLogger()
+    #Checking the input for erroneous data
+    log2.info('{}*{}*{}'.format('detection\main.py', 'checkAccuracyTest', test_script))
     print("metric check: ", test_script)
     py_tree = py_parser.getPythonParseObject(test_script)
     metric_list = py_parser.getMetricNames( py_tree ) 
@@ -53,6 +62,9 @@ def checkAccuracyTest(test_script):
     
     
 def chackAttackTest(test_script, assert_list):
+    log3 = project_logger.getInfoLogger()
+    #Checking the input for erroneous data
+    log3.info('{}*{}*{}*{}'.format('detection\main.py', 'checkAttackTest', test_script, assert_list))
     attack_check = []
     print("attack check: ", test_script)
     py_tree = py_parser.getPythonParseObject(test_script)
