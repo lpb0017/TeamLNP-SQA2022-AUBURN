@@ -13,5 +13,5 @@ jobs:
       - run: pip install -r imports.txt
         shell: bash
         
-      - run: python LNP-fuzz.py
+      - run: python TestOrchestrator4ML-main/LNP-fuzz.py
         shell: bash
