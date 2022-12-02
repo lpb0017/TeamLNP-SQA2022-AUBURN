@@ -2,6 +2,7 @@ import ast
 import os 
 import constants 
 import astdump
+import project_logger
 
 def getPythonParseObject( pyFile ): 
 	try:
@@ -129,6 +130,9 @@ def getFunctionDefinitionsWithAssert(class_body):
     
 
 def getFunctionAssignments(class_body):
+    log0 = project_logger.getInfoLogger()
+    #Checking the input for erroneous data
+    log0.info('{}*{}*{}'.format('detection\py_parser.py', 'getFunctionAssignments', class_body))
     func_list = []
     for stmt_ in class_body:
         for node_ in ast.walk(stmt_):

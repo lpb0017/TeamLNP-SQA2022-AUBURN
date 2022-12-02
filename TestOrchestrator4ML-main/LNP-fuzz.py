@@ -4,8 +4,8 @@ from typing import Any, List
 import numpy as np
 
 from generation.py_parser import getImport
-from label_perturbation_attack.knn import prepare_data, calculate_k
-from label_perturbation_attack.main import calculate_stat, repeat_experiment
+from label_perturbation_attack.knn import predict, calculate_k
+from label_perturbation_attack.main import calculate_stat, call_prob
 
 
 def fuzz(method, fuzzer: List[Any]):
@@ -23,14 +23,14 @@ if __name__ == "__main__":
     fuzz_targets = [
         (
             getImport, [
-                (None, None),
-                (1, 2),
-                (1.0, 2.0),
+                (None),
+                (1),
+                (1.0),
                 ("NLP GROUP", "GROUP PROJECT"),
             ]
         ),
         (
-            prepare_data, [
+            predict, [
                 (None, None),
                 ("SQA", "FINAL"),
                 ([], {}),
@@ -43,29 +43,29 @@ if __name__ == "__main__":
         (
             calculate_k, [
                 ([]),
-                (None, 0),
-                (None, 1.0),
-                (None, "SQA PROJECT"),
-                (None, [None, None, None]),
-                (None, np.zeros((1, 50))),
+                (None, 0, 0, 0),
+                (None, 1.0, 2.0, 3.0),
+                (None, "SQA PROJECT", "String 2", "String 3"),
+                (None, [None, None, None], 1.2, "String 4"),
+                (None, np.zeros((1, 50)), 0, 0),
             ]
         ),
         (
             calculate_stat, [
-                (None,),
-                (0,),
-                (1.0,),
-                ([],),
-                ("APPLE",),
+                (None, None),
+                (0),
+                (1.0, 2.0),
+                ([], []),
+                ("APPLE", "PIE"),
             ]
         ),
         (
-            repeat_experiment, [
-                (0, 0, None,),
-                (None, None, 0,),
-                ("APPLE", "MACBOOK", 1.0,),
-                (float("-inf"), float("inf"), [],),
-                ([], [], "SQA PROJECT",),
+            call_prob, [
+                (0, 0, None),
+                (None, None, 0),
+                ("APPLE", "MACBOOK", 1.0),
+                (float("-inf"), float("inf"), []),
+                ([], [], "SQA PROJECT"),
             ]
         )
 
